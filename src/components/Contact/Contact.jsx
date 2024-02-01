@@ -1,16 +1,19 @@
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { IoPerson } from 'react-icons/io5';
+import css from './Contact.module.css';
 
-export const Contact = ({ val: { name, number } }) => {
+export const Contact = ({ val: { id, name, number }, onDelete }) => {
   return (
-    <div>
-      <p>
+    <div className={css.contactBox}>
+      <div><p className={css.contactBoxName}>
         <IoPerson /> {name}
       </p>
-      <p>
+      <p className={css.contactBoxNumber}>
         <BsFillTelephoneFill /> {number}
-      </p>
-      <button>Delete</button>
+      </p></div>
+      <button type="button" className={css.contactBoxButton} onClick={() => onDelete(id)}>
+        Delete
+      </button>
     </div>
   );
 };
