@@ -7,13 +7,13 @@ import css from './ContactForm.module.css';
 const feedbackSchema = Yup.object().shape({
   name: Yup.string().min(3, 'Too Short!').max(50, 'Too Long!').required('Required'),
   number: Yup.string()
-    .matches(/^\d{1,9}$/, 'Incorrect phone number')
-    .min(7, 'Too Short!')
+    .min(3, 'Too Short! Input format: 123456789')
+    .max(14, 'Too Long!')
     .required('Required'),
 });
 export const ContactForm = ({ onSubmitForm }) => {
-   function onSubmitFormik(values, actions) {
-        actions.resetForm();
+  function onSubmitFormik(values, actions) {
+    actions.resetForm();
     onSubmitForm({ id: nanoid(5), ...values });
   }
   const nameId = useId();
@@ -24,13 +24,13 @@ export const ContactForm = ({ onSubmitForm }) => {
       onSubmit={onSubmitFormik}
       validationSchema={feedbackSchema}
     >
-      <Form className={css.form} autoComplete="off"> 
+      <Form className={css.form} autoComplete="off">
         <div className={css.formName}>
           <label htmlFor={nameId}>Name</label>
-          <Field   type="text" name="name" id={nameId} />
+          <Field type="text" name="name" id={nameId} />
           <ErrorMessage name="name" component="span" />
         </div>
-        <div className={css.formName}> 
+        <div className={css.formName}>
           <label htmlFor={numberId}>Number</label>
           <Field type="tel" name="number" id={numberId} />
           <ErrorMessage name="number" component="span" className={css.span} />
